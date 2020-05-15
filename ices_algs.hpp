@@ -15,8 +15,6 @@
 #include <cassert>
 #include <iostream>
 
-#include <math.h>
-
 #include "ices_types.hpp"
 
 namespace ices {
@@ -29,7 +27,7 @@ namespace ices {
 //
 // The grid must be non-empty.
   unsigned int iceberg_avoiding_exhaustive(const grid& setting) {
-      
+
     // grid must be non-empty.
     assert(setting.rows() > 0);
     assert(setting.columns() > 0);
@@ -39,7 +37,7 @@ namespace ices {
     assert(steps < 64);
 
     unsigned int count_paths = 0;
-   
+
     bool isValid;
     path candidate(setting); // initialize candidate with setting
     for(int bits = 0; bits <= (pow(2, steps))-1; bits++) {
@@ -50,16 +48,16 @@ namespace ices {
         if(bit == 1) {
           // step must be validated before being added to the path
           if(!(candidate.is_step_valid(STEP_DIRECTION_RIGHT))) {
-            isValid = false; 
-            break; 
+            isValid = false;
+            break;
           }
           candidate.add_step(STEP_DIRECTION_RIGHT);
         }
         else {
           // step must be validated before being added to the path
           if(!(candidate.is_step_valid(STEP_DIRECTION_DOWN))) {
-            isValid = false; 
-            break; 
+            isValid = false;
+            break;
           }
           candidate.add_step(STEP_DIRECTION_DOWN);
         }
@@ -71,7 +69,7 @@ namespace ices {
       }
 
     }
-    
+
     return count_paths;
   }
 
@@ -100,9 +98,9 @@ namespace ices {
           continue;
         }
         // this checks to see if the cell is at [i][j] is an iceberg or not
-        if(setting.may_step(i, j) == false) { 
+        if(setting.may_step(i, j) == false) {
           A[i][j] = 0;
-          continue; 
+          continue;
         }
         from_above = from_left = 0;
 
@@ -111,7 +109,7 @@ namespace ices {
           from_above = A[i-1][j];
         }
 
-        // Checking to the left of the current cell 
+        // Checking to the left of the current cell
         if(j > 0 && (A[i][j-1] != 0)) {
           from_left = A[i][j-1];
         }
@@ -124,7 +122,7 @@ namespace ices {
 
       }
     }
-    
+
     return A[setting.rows()-1][setting.columns()-1];
   }
 
