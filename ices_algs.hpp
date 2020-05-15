@@ -42,7 +42,7 @@ namespace ices {
     path candidate(setting); // initialize candidate with setting
     for(int bits = 0; bits <= (pow(2, steps))-1; bits++) {
       candidate = setting; // row = column = 0 which is the equivalent of the start, [0][0]
-      for(int k = 0; k <= (steps-1); k++) {
+      for(unsigned int k = 0; k <= (steps-1); k++) {
         isValid = true;
         int bit = (bits >> k) & 1;
         if(bit == 1) {
@@ -91,8 +91,8 @@ namespace ices {
 
     // General case
     int from_above, from_left;
-    for(int i = 0; i <= setting.rows()-1; i++) {
-      for(int j = 0; j <= setting.columns()-1; j++) {
+    for(unsigned int i = 0; i <= setting.rows()-1; i++) {
+      for(unsigned int j = 0; j <= setting.columns()-1; j++) {
         // Base case already addresses A[0][0] in order to ensure that it is not an iceberg, so we can skip it
         if(i == 0 && j == 0) {
           continue;
